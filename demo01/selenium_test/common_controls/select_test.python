@@ -1,0 +1,69 @@
+# coding=utf-8
+"""
+select下拉框测试
+"""
+# 导入相关包
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import Select
+from selenium.webdriver.support.select import Select
+import time
+
+# 实例化驱动对象
+driver = webdriver.Chrome()
+
+# 获取网址
+# 下拉框单选
+# driver.get(r"C:\code\demo01\selenium\common_controls\html\selects.html")
+# 下拉框多选
+driver.get(r"C:\code\demo01\selenium_test\common_controls\html\selectss.html")
+time.sleep(1)
+
+
+sl = Select(driver.find_element(By.ID,'s1Id'))
+print(type(sl))
+'''
+time.sleep(1)
+# 按下标选择
+sl.select_by_value('o1')
+time.sleep(1)
+# 按value值选择
+sl.select_by_index(0)
+time.sleep(1)
+# 按文本选择
+sl.select_by_visible_text('o2')
+time.sleep(1)
+# 取消全选
+sl.deselect_all()
+'''
+
+# 输出返回的数据options
+all_options = sl.options
+print("option的类型是{}".format(type(all_options)))
+mylist = []
+for i in all_options:
+    mylist.append(i.text)
+print('这个下拉列表的选项包括：{}'.format(mylist))
+
+# 通过循环选中
+for i in range(0,len(all_options)):
+    sl.select_by_index(i)
+# 等待3秒
+# 获取选中项的文字
+first = sl.first_selected_option.text
+print(first)
+
+# 获取所有选中项的文字
+all = sl.all_selected_options
+mylist01 = []
+for i in all:
+    mylist01.append(i.text)
+
+print(mylist01)
+
+# 判断是否为多选下拉列表
+res = sl.is_multiple
+print("该下拉框是否可多选：{}".format(res))
+time.sleep(3)
+# 退出浏览器
+driver.quit()

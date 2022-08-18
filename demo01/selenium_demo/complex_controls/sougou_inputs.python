@@ -1,0 +1,61 @@
+# coding=utf-8
+"""
+搜狗输入框
+"""
+# 导入相关包
+from selenium.webdriver import Keys
+
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+import time
+
+# 实例化驱动对象
+driver = webdriver.Chrome()
+
+# 获取网址
+driver.get("https://www.sogou.com/")
+
+# 点击搜索框
+ele = driver.find_element(By.ID,'query')
+ele.click()
+time.sleep(1)
+
+# 弹出搜索热词列表
+# 下移操作
+ele.send_keys(Keys.ARROW_DOWN)
+time.sleep(1)
+ele.send_keys(Keys.ARROW_DOWN)
+time.sleep(1)
+ele.send_keys(Keys.ARROW_DOWN)
+time.sleep(1)
+ele.send_keys(Keys.ARROW_DOWN)
+time.sleep(1)
+# 进入搜索结果
+ele.send_keys(Keys.ENTER)
+
+# 清空
+ele.clear()
+time.sleep(1)
+
+# 模糊查询选择输入项
+ele2 = driver.find_element(By.ID,'query')
+ele2.send_keys('storm')
+time.sleep(1)
+driver.find_element(By.XPATH,'//*[@id="vl"]/div[1]/ul/li[contains(.,"品牌")]').click()
+time.sleep(1)
+driver.back()
+# ele2.clear()
+time.sleep(2)
+# 固定位置选择输入项
+ele3 = driver.find_element(By.ID,'query')
+ele3.send_keys('storm')
+time.sleep(1)
+driver.find_element(By.XPATH,'//*[@id="vl"]/div[1]/ul/li[2]').click()
+time.sleep(1)
+
+
+
+# 等待3秒
+time.sleep(3)
+# 退出浏览器
+driver.quit()

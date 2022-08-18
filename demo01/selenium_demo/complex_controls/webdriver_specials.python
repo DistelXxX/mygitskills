@@ -1,0 +1,27 @@
+# coding=utf-8
+"""
+webdriver的特殊操作
+"""
+# 导入相关包
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+import time
+
+# 实例化驱动对象
+driver = webdriver.Chrome()
+
+# 获取网址
+driver.get("C:\code\demo01\selenium\complex_controls\html\webdriver_specials.html")
+time.sleep(1)
+
+# 元素class值包含空格
+# 1、使用元素class值的前后部分来定位元素
+driver.find_element(By.CLASS_NAME,'hello').send_keys('China')
+
+# 2、使用类选择器来定位元素
+driver.find_element(By.CSS_SELECTOR,'.hello.storm').send_keys(' is')
+
+# 等待3秒
+time.sleep(3)
+# 退出浏览器
+driver.quit()

@@ -1,0 +1,46 @@
+# coding=utf-8
+"""
+以163邮箱为例，通过添加cookies，达到免登录的效果
+"""
+# 导入相关包
+import json
+
+from selenium import webdriver
+# from selenium_test.unit_tests.qq_email import QQemail
+import time
+
+# 实例化驱动对象
+driver = webdriver.Chrome()
+
+# 获取网址
+driver.get("http://mail.163.com/")
+
+
+# u = QQemail()
+# # 引入登录
+# u.email_login('15970926681')
+# u.save_cookies()
+# 保存cookies
+# u.save_cookies()
+
+cookies_file_path = 'mycookies.json'
+with open(cookies_file_path,'r') as f:
+    cookies_str = f.readline()
+    cookies_dict = json.loads(cookies_str)
+
+driver.delete_all_cookies()
+
+for cookie in cookies_dict:
+    for k in cookie.keys():
+        if k == 'expiry':
+            cookie[k] = int(cookie[k])
+
+    driver.add_cookie(cookie)
+
+time.sleep(2)
+
+driver.refresh()
+# 等待3秒
+time.sleep(3)
+# 退出浏览器
+driver.quit()

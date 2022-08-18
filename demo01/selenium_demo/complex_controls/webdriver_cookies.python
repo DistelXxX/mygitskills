@@ -1,0 +1,48 @@
+# coding=utf-8
+"""
+cookies的操作
+"""
+# 导入相关包
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+import time
+
+# 实例化驱动对象
+driver = webdriver.Chrome()
+
+# 获取网址
+driver.get("https://www.baidu.com")
+
+# 获取当前cookies
+cur_cookies = driver.get_cookies()
+print(type(cur_cookies))  # list
+print(type(cur_cookies[0]))  # dict
+print(len(cur_cookies))
+print(cur_cookies)
+time.sleep(1)
+
+# 获取单个cookies
+cookie = driver.get_cookie('BAIDUID')  # dict
+print(type(cookie))
+print(cookie)
+
+# 删除单个cookie
+print(len(driver.get_cookies()))  # 删除前的数量
+driver.delete_cookie('BAIDUID')
+print(len(driver.get_cookies()))  # 删除后的数量
+
+# 删除全部cookie
+print(len(driver.get_cookies()))  # 删除前的数量
+driver.delete_all_cookies()
+print(len(driver.get_cookies()))  # 删除后的数量
+
+# 添加某个cookie
+print(len(driver.get_cookies()))  # 删除前的数量
+driver.add_cookie({"name":"storm","value":"123456"})
+print(len(driver.get_cookies()))  # 删除后的数量
+
+
+# 等待3秒
+time.sleep(3)
+# 退出浏览器
+driver.quit()

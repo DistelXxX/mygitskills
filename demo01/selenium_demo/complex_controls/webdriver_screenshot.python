@@ -1,0 +1,31 @@
+# coding=utf-8
+"""
+页面截图
+"""
+# 导入相关包
+import os
+
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+import time
+
+script_name = os.path.basename(__file__).split('.')[0]
+file_name = script_name+'_'+str(time.time())+'.png'
+
+# 实例化驱动对象
+driver = webdriver.Chrome()
+
+# 获取网址
+driver.get("https://www.baidu.com")
+time.sleep(1)
+
+# 页面截图
+driver.save_screenshot(file_name)
+
+# 同上截图效果
+# driver.get_screenshot_as_file('a.png')
+
+# 等待3秒
+time.sleep(3)
+# 退出浏览器
+driver.quit()

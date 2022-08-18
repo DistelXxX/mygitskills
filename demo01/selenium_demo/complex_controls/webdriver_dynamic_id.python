@@ -1,0 +1,44 @@
+# coding=utf-8
+"""
+定位动态id
+    其他唯一属性值定位
+    相对关系位置定位
+    部分元素属性值定位
+        contains(a,b)
+        starts-with(a,b)
+        ends-with(a,b)
+"""
+# 导入相关包
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+import time
+
+from test02.mysqlconnect import UandP
+u = UandP()
+b = u.getUsernameAndPassword('15970926681')
+
+# 实例化驱动对象
+driver = webdriver.Chrome()
+
+# 获取网址
+driver.get("https://mail.163.com")
+# contains
+ele1 = driver.find_element(By.XPATH,'//*[contains(@id,"x-URS-iframe")]')
+driver.switch_to.frame(ele1)
+time.sleep(2)
+
+# 获取用户输入框
+driver.find_element(By.NAME,'email').send_keys(b[1])
+driver.find_element(By.NAME,'password').send_keys(b[2])
+time.sleep(3)
+
+driver.find_element(By.ID,'dologin').click()
+time.sleep(1)
+# 写信
+driver.find_element(By.CLASS_NAME,'nui-editableAddr-ipt').click()
+time.sleep(2)
+
+# 等待3秒
+time.sleep(10)
+# 退出浏览器
+driver.quit()

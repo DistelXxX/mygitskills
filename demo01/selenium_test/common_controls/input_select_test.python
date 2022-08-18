@@ -1,0 +1,27 @@
+# coding=utf-8
+"""
+input下拉框测试
+"""
+# 导入相关包
+from selenium.webdriver import Keys
+
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+import time
+
+# 实例化驱动对象
+driver = webdriver.Chrome()
+
+# 获取网址
+driver.get("C:\code\demo01\selenium\common_controls\html\input_select01.html")
+
+
+driver.find_element(By.ID,'select').send_keys('b')
+driver.find_element(By.ID,'select').send_keys(Keys.ARROW_DOWN)
+time.sleep(1)
+driver.find_element(By.ID,'select').send_keys(Keys.ENTER)
+
+# 等待3秒
+time.sleep(3)
+# 退出浏览器
+driver.quit()

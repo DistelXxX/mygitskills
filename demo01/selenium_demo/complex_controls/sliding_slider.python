@@ -1,0 +1,32 @@
+# coding=utf-8
+"""
+滑动滑块操作
+"""
+# 导入相关包
+from selenium.webdriver import ActionChains
+
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+import time
+
+# 实例化驱动对象
+driver = webdriver.Chrome()
+
+# 获取网址
+driver.get("https://www.runoob.com/try/try2.php?filename=tryfoundation_slider")
+time.sleep(1)
+
+driver.switch_to.frame('iframeResult')
+time.sleep(1)
+
+# 获取滑块框
+ele1 = driver.find_element(By.XPATH,'/html/body/div/div')
+
+ele2 = driver.find_element(By.XPATH,'/html/body/div/div/span[1]')
+time.sleep(1)
+
+ActionChains(driver).drag_and_drop_by_offset(ele2,200,0).perform()
+# 等待3秒
+time.sleep(3)
+# 退出浏览器
+driver.quit()

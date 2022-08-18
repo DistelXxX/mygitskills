@@ -1,0 +1,51 @@
+# coding=utf-8
+"""
+键盘操作
+"""
+from selenium.webdriver import Keys, ActionChains
+from selenium.webdriver.common.by import By
+
+from selenium import webdriver
+import time
+
+driver = webdriver.Chrome()
+# driver.get("https://www.baidu.com")
+#
+# ele1 = driver.find_element(By.ID,'kw')
+# ele2 = driver.find_element(By.ID,'su')
+# ele1.send_keys('China')
+# ele2.click()
+# time.sleep(3)
+#
+# driver.back()
+# time.sleep(3)
+#
+# print(driver.current_url)
+# ele1 = driver.find_element(By.ID,'kw')
+# ele2 = driver.find_element(By.ID,'su')
+# ele1.send_keys("中国")
+# ele1.send_keys(Keys.CONTROL,'a')
+# ele1.send_keys(Keys.CONTROL,'c')
+# time.sleep(3)
+#
+# ele1.clear()
+# time.sleep(3)
+# ele1.send_keys(Keys.CONTROL,'v')
+# time.sleep(3)
+#
+# ele1.send_keys(Keys.ENTER)
+# # ele2.click()
+'''
+# Ctrl+键
+'''
+
+driver.get("http://sahitest.com/demo/clickCombo.htm")
+time.sleep(3)
+
+ele = driver.find_element(By.XPATH,'/html/body/div/div')
+ActionChains(driver).key_down(Keys.CONTROL).perform()
+ele.click()
+
+time.sleep(3)
+driver.quit()
+

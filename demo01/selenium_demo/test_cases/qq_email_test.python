@@ -1,0 +1,103 @@
+# coding=utf-8
+"""
+qq邮箱测试案例
+"""
+# 导入相关包
+from selenium.webdriver import Keys
+
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+import time
+from prctice01.userinfo import User
+from test02.mysqlconnect import UandP
+u = UandP()
+b = u.getUsernameAndPassword()
+# print(b)
+# username = b[1]
+# password = b[2]
+# print(username,password)
+# i = 1/0
+# u = User()
+# print(u._User__name)
+# 实例化驱动对象
+driver = webdriver.Chrome()
+
+# 获取网址
+driver.get("https://www.baidu.com/")
+print(driver.current_window_handle)
+# 搜索
+driver.find_element(By.ID,'kw').send_keys('QQ邮箱')
+driver.find_element(By.ID,'su').click()
+time.sleep(3)
+
+# 打开
+driver.find_element(By.XPATH,'//*[@id="1"]/div/div[1]/h3/a').click()
+time.sleep(1)
+all_haddlers = driver.window_handles
+print(all_haddlers)
+driver.switch_to.window(all_haddlers[1])
+time.sleep(1)
+
+
+driver.switch_to.frame('login_frame')
+time.sleep(1)
+# driver.find_element(By.ID,'switcher_plogin').click()
+# time.sleep(1)
+# driver.find_element(By.XPATH,'//*[@id="switcher_plogin"]').click()
+# time.sleep(1)
+# driver.find_element(By.ID,'u').send_keys(User.name)
+# driver.find_element(By.ID,'p').send_keys('SUPERMAN')
+# time.sleep(1)
+# driver.find_element(By.ID,'login_button').click()
+
+driver.find_element(By.XPATH,'//*[@id="img_out_911149062"]').click()
+time.sleep(1)
+
+
+def sendEmail(n):
+    for i in range(n):
+        time.sleep(1)
+        # 点击写信按钮
+        driver.find_element(By.XPATH,'//*[@id="composebtn"]').click()
+        time.sleep(1)
+        # 切换iframe
+        driver.switch_to.frame('mainFrame')
+        # 点击收信人，填入账号信息，点击enter
+        a = driver.find_element(By.XPATH,'//*[@id="toAreaCtrl"]/div[2]/input')
+        a.send_keys('2227691640@qq.com')
+        a.send_keys(Keys.ENTER)
+
+        # 点击主题，填入信息
+        driver.find_element(By.XPATH,'//*[@id="subject"]').send_keys('我是你爸爸')
+        time.sleep(1)
+        # 添加附件
+        driver.find_element(By.XPATH,'//*[@id="AttachFrame"]/span/input').send_keys(r'C:\Users\Administrator\Desktop\学习资料\模板.xlsx')
+        # 切换到iframe
+        driver.switch_to.frame(driver.find_element(By.XPATH,'//*[@class="qmEditorIfrmEditArea"]'))
+        # driver.switch_to.frame(driver.find_element(By.XPATH,'//*[@id="QMEditorArea"]/table/tbody/tr[2]/td'))
+        time.sleep(1)
+
+        # 点击正文，输入信息
+        driver.find_element(By.XPATH,'/html/body').click()
+        driver.find_element(By.XPATH,'/html/body').send_keys("Hello World", "\nlucas")
+
+        # 返回到mainframe
+
+        driver.switch_to.parent_frame()
+        # 定位发送按钮
+
+        driver.find_element(By.XPATH,'//*[@name="sendbtn"]').click()
+        time.sleep(5)
+        driver.refresh()
+
+
+# sendEmail()
+
+sendEmail(1)
+    # sendEmail()
+    # print('已发送{}'.format(i+1)+'条邮件')
+
+# # # 等待3秒
+# time.sleep(20)
+# # # 退出浏览器
+# driver.quit()

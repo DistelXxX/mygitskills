@@ -1,0 +1,31 @@
+# coding=utf-8
+"""
+搜索框实战
+"""
+# 导入相关包
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+import time
+
+# 实例化驱动对象
+driver = webdriver.Chrome()
+
+# 获取网址
+driver.get("https://www.baidu.com")
+
+ele1 = driver.find_element(By.ID,'kw')
+ele2 = driver.find_element(By.ID,'su')
+
+ele1.send_keys('China')
+# clear方法在处理有提示信息（placeholder这个属性）的搜索框的时候很有用，
+# 一般需要先使用clear，再使用send_keys
+# ele1.clear()
+print(ele1.get_property('value'))
+print(ele1.get_attribute('name'))
+print(ele1.tag_name)
+
+
+# 等待3秒
+time.sleep(3)
+# 退出浏览器
+driver.quit()

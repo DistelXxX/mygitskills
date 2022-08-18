@@ -1,0 +1,28 @@
+# coding=utf-8
+"""
+操作javascript代码
+"""
+# 导入相关包
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+import time
+
+# 实例化驱动对象
+driver = webdriver.Chrome()
+
+# 获取网址
+driver.get("C:\code\demo01\selenium_demo\complex_controls\html\js_execute.html")
+
+# 移除input框的readonly属性
+js = "document.getElementById('c-date1').removeAttribute('readonly')" # 原生js，移除属性#
+# js = "$('input[id=c-date1]').removeAttr('readonly')"  # jQuery，移除属性
+#  js = "$('input[id=c-date1]').attr('readonly',False)"  # jQuery，设置为False
+#  js = "$('input[id=c-date1]').attr('readonly','')"  # jQuery，设置为空
+driver.execute_script(js)
+
+driver.find_element(By.TAG_NAME,'input').send_keys('002020/06/06')
+
+# 等待3秒
+time.sleep(3)
+# 退出浏览器
+driver.quit()

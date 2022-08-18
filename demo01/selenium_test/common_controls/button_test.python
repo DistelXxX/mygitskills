@@ -1,0 +1,46 @@
+# coding=utf-8
+"""
+
+"""
+# 导入相关包
+from selenium.webdriver import ActionChains
+
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+import time
+
+# 实例化驱动对象
+driver = webdriver.Chrome()
+
+# 获取网址
+driver.get("http://sahitest.com/demo/clicks.htm")
+
+# 双击操作
+ele1 = driver.find_element(By.XPATH,'/html/body/form/input[2]')
+ActionChains(driver).double_click(ele1).perform()
+time.sleep(3)
+
+# 右击操作
+# ele2 = driver.find_element(By.XPATH,'/html/body/form/input[4]')
+# ActionChains(driver).context_click(ele2).perform()
+
+driver.find_element(By.XPATH,'/html/body/form/input[1]').click()
+time.sleep(3)
+
+driver.find_element(By.XPATH,'/html/body/form/input[6]').click()
+time.sleep(3)
+
+driver.find_element(By.XPATH,'/html/body/form/input[7]').click()
+time.sleep(3)
+
+ele2 = driver.find_element(By.XPATH,'/html/body/form/input[8]')
+ele2.click()
+if ele2.is_selected():
+    print('pass')
+time.sleep(3)
+
+
+# 等待3秒
+time.sleep(3)
+# 退出浏览器
+driver.quit()

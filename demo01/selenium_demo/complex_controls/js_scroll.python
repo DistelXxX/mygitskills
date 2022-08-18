@@ -1,0 +1,48 @@
+# coding=utf-8
+"""
+操作滚动条
+"""
+# 导入相关包
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+
+from selenium_test.unit_tests.qq_email import QQemail
+import time
+
+# 实例化驱动对象
+driver = webdriver.Chrome()
+
+# 获取网址
+u = QQemail(driver)
+u.baidu_search('storm')
+
+# 滚动页面操作
+js1 = "window.scrollTo(0,document.body.scrollHeight)"
+js2 = "window.scrollTo(0,0)"
+js3 = "window.scrollTo(0,200)"
+js4 = "arguments[0].scrollIntoView()"  # 滑动到指定元素
+
+time.sleep(2)
+
+driver.execute_script(js1)
+time.sleep(2)
+driver.execute_script(js2)
+time.sleep(2)
+driver.execute_script(js3)
+time.sleep(2)
+driver.execute_script(js2)
+
+time.sleep(2)
+ele = driver.find_element(By.ID,'con-ar')
+driver.execute_script(js4,ele)
+
+# 横向滚动，先缩小窗口，如同上面竖向操作一样，
+# 只是将scrollTo函数的参数调换位置就行，将竖向移动改为0
+
+# 针对内嵌页面的滚动操作
+
+
+# 等待3秒
+time.sleep(3)
+# 退出浏览器
+driver.quit()

@@ -1,0 +1,22 @@
+# coding=utf-8
+"""
+复选框操作
+"""
+# 导入相关包
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+import time
+
+# 实例化驱动对象
+driver = webdriver.Chrome()
+
+# 获取网址
+driver.get("C:\code\demo01\selenium\common_controls\html\checkbox.html")
+
+a = driver.find_elements(By.NAME,'a')
+for i in a:
+    i.click()
+# 等待3秒
+time.sleep(3)
+# 退出浏览器
+driver.quit()

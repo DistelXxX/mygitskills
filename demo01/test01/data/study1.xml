@@ -1,0 +1,7 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<config>
+    <browser>1</browser>
+    <username>name1</username>
+    <username>name2</username>
+    <password>123456</password>
+</config>

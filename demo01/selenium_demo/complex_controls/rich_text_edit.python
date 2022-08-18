@@ -1,0 +1,52 @@
+# coding=utf-8
+"""
+富文本编辑器
+"""
+# 导入相关包
+from selenium.webdriver.support.relative_locator import with_tag_name
+
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+import time
+
+from test02.mysqlconnect import UandP
+u = UandP()
+b = u.getUsernameAndPassword('15970926681')
+# 实例化驱动对象
+driver = webdriver.Chrome()
+
+# 获取网址
+driver.get("https://mail.163.com")
+time.sleep(3)
+# 切换iframe
+driver.switch_to.frame(0)
+time.sleep(1)
+# 获取用户输入框
+driver.find_element(By.NAME,'email').send_keys(b[1])
+driver.find_element(By.NAME,'password').send_keys(b[2])
+time.sleep(3)
+
+
+
+driver.find_element(By.ID,'dologin').click()
+# 等待3秒
+time.sleep(10)
+
+# 写信
+driver.find_element(By.XPATH,'//*[@id="_mail_component_149_149"]/span[2]').click()
+time.sleep(2)
+
+ele1 = driver.find_element(By.CLASS_NAME,'nui-editableAddr-ipt')
+ele1.send_keys('911149062@qq.com')
+time.sleep(1)
+
+# driver.find_element(By.XPATH,'//*[@id="1660534042974_subjectInput"]').send_keys('123456')
+driver.find_element(with_tag_name('input').below(ele1)).send_keys("123456")
+# ele = driver.find_element(By.XPATH,'//*[@id="_mail_editor_1_434"]/div[1]/div[2]/iframe')
+#
+# driver.switch_to.frame(ele)
+#
+# driver.find_element(By.XPATH,'//*[@id="_mail_component_452_452"]').send_keys('1234567890')
+
+# 退出浏览器
+driver.quit()

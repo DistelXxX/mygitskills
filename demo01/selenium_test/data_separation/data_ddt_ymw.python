@@ -1,0 +1,38 @@
+# coding=utf-8
+"""
+ddt:unittest参数化测试易买网
+"""
+import unittest
+from selenium import webdriver
+import time
+import ddt
+from selenium.webdriver.common.by import By
+from parameterized import parameterized, param
+# @ddt.ddt
+class TestYmwDdt(unittest.TestCase):
+    def setUp(self):
+        self.driver = webdriver.Chrome()
+        self.driver.get('http://localhost:8080/EasyBuy/')
+        self.driver.maximize_window()
+        time.sleep(3)
+    # @ddt.data(['admin','123456','1'],['admin','654321123456','0'])
+    # @ddt.unpack
+    @parameterized.expand([('admin','123456','1'),('admin','654321123456','0')])
+    def test_login(self,loginName,password,status):
+        self.driver.find_element(By.XPATH,'/html/body/div[1]/div/span[2]/span/a[1]').click()
+        time.sleep(2)
+        self.driver.find_element(By.ID,'loginName').send_keys(loginName)
+        self.driver.find_element(By.ID,'password').send_keys(password)
+        time.sleep(2)
+        self.driver.find_element(By.XPATH,'/html/body/div[4]/div[2]/div[2]/form/table/tbody/tr[4]/td[2]/input').submit()
+
+        if status == '0':
+            print('登录失败')
+        elif status == '1':
+            print('登录成功')
+    def tearDown(self):
+        time.sleep(3)
+        self.driver.quit()
+
+if __name__ == '__main__':
+    unittest.main()

@@ -1,0 +1,29 @@
+# coding=utf-8
+"""
+property、attribute、text的区别
+"""
+# 导入相关包
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+import time
+
+# 实例化驱动对象
+driver = webdriver.Chrome()
+
+# 获取网址
+driver.get("https://www.baidu.com")
+
+ele = driver.find_element(By.ID,'kw')
+print(ele.get_property('id'))
+
+ele.send_keys('China')
+print(ele.get_attribute("value"))
+
+ele = driver.find_element(By.LINK_TEXT,'地图')
+print(ele.text)
+
+
+# 等待3秒
+time.sleep(3)
+# 退出浏览器
+driver.quit()
